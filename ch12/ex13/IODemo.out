@@ -1,0 +1,146 @@
+1: //: c12:IOStreamDemo.java
+2: // Typical I/O stream configurations.
+3: // {RunByHand}
+4: // {Clean: IODemo.out,Data.txt,rtest.dat}
+5: // From 'Thinking in Java, 3rd ed.' (c) Bruce Eckel 2002
+6: // www.BruceEckel.com. See copyright notice in CopyRight.txt.
+7: import com.bruceeckel.simpletest.*;
+8: import java.io.*;
+9: import java.util.regex.*;
+10: 
+11: public class IOStreamDemo {
+12:   private static Test monitor = new Test();
+13:   // Throw exceptions to console:
+14:   public static void main(String[] args)
+15:   throws IOException {
+16:     // 1. Reading input by lines:
+17: 	// In general, each read request made of a Reader causes
+18: 	// a corresponding read request to be made of the
+19: 	// underlying character or byte stream.
+20: 	// It is therefore advisable to wrap a BufferedReader
+21: 	// around any Reader whose read() operations may be
+22: 	// costly, such as FileReaders and InputStreamReaders.
+23:     BufferedReader in = new BufferedReader(
+24:       new FileReader("IOStreamDemo.java"));
+25:     String s, s2 = new String();
+26:     while((s = in.readLine())!= null)
+27:       s2 += s + "\n";
+28:     in.close();
+29: 
+30:     // 1b. Reading standard input:
+31: 	// InputStreamReader is a bridge(adapter) from byte streams
+32: 	// to character streams: It reads bytes and decodes
+33: 	// them into characters.
+34: 	// System.in(byte stream) is an InputStream, 
+35: 	// and BufferedReader needs a Reader argument,
+36: 	// so InputStreamReader is brought in to perform
+37: 	// the adaptation.
+38:     BufferedReader stdin = new BufferedReader(
+39:       new InputStreamReader(System.in));
+40:     System.out.print("Enter a line:");
+41:     System.out.println(stdin.readLine());
+42: 
+43:     // 2. Input from memory
+44:     StringReader in2 = new StringReader(s2);
+45:     int c;
+46:     while((c = in2.read()) != -1)
+47:       System.out.print((char)c);
+48: 
+49:     // 3. Formatted memory input
+50: 	// To read 'formatted' data, you use a DataInputStream,
+51: 	// which is a byte-oriented I/O class
+52: 	// (rather than char-oriented). Thus you must use all
+53: 	// InputStream classes rather than Reader classes.
+54: 	// getBytes() converts a string to array of bytes which
+55: 	// is required for ByteArrayInputStream
+56:     try {
+57:       DataInputStream in3 = new DataInputStream(
+58:         new ByteArrayInputStream(s2.getBytes()));
+59:       while(true)
+60:         System.out.print((char)in3.readByte());
+61:     } catch(EOFException e) {
+62:       System.err.println("End of stream");
+63:     }
+64: 
+65:     // 4. File output
+66: 	// FileWriter is created to connect to the file. 
+67: 	// You’ll virtually always want to buffer the output
+68: 	// by wrapping it in a BufferedWriter
+69: 	// buffering tends to dramatically increase performance
+70: 	// of I/O operations.
+71: 	// Then for the formatting it’s turned into a PrintWriter.
+72: 	// The data file created this way is readable as an 
+73: 	// ordinary text file.
+74: 	// FileWriter - where you want to write
+75: 	// BufferedWriter - Provide buffer for writing
+76: 	// PrintWriter - how you want to write
+77: 	// BufferedReader - what you want to write(while providing
+78: 	// buffer for reading).
+79:     try {
+80:       BufferedReader in4 = new BufferedReader(
+81:         new StringReader(s2)); // you would use FileReader, if it was to read from a file.
+82:       PrintWriter out1 = new PrintWriter(
+83:         new BufferedWriter(new FileWriter("IODemo.out")));
+84: 	  // Note that LineNumberInputStream is not used,
+85: 	  // because it’s a silly class and you don’t need it.
+86: 	  // As shown here, it’s trivial to keep track
+87: 	  // of your own line numbers.
+88:       int lineCount = 1;
+89:       while((s = in4.readLine()) != null )
+90:         out1.println(lineCount++ + ": " + s);
+91: 	// if you don’t call close( ) for all your output files,
+92: 	// you might discover that the buffers don’t get flushed,
+93: 	// so they’re incomplete.
+94:       out1.close();
+95:     } catch(EOFException e) {
+96:       System.err.println("End of stream");
+97:     }
+98: 
+99:     // 5. Storing & recovering data
+100:     try {
+101:       DataOutputStream out2 = new DataOutputStream(
+102:         new BufferedOutputStream(
+103:           new FileOutputStream("Data.txt")));
+104:       out2.writeDouble(3.14159);
+105:       out2.writeUTF("That was pi");
+106:       out2.writeDouble(1.41413);
+107:       out2.writeUTF("Square root of 2");
+108:       out2.close();
+109:       DataInputStream in5 = new DataInputStream(
+110:         new BufferedInputStream(
+111:           new FileInputStream("Data.txt")));
+112:       // Must use DataInputStream for data:
+113:       System.out.println(in5.readDouble());
+114:       // Only readUTF() will recover the
+115:       // Java-UTF String properly:
+116: 	  String tempString = in5.readUTF();
+117: 	  //Pattern p = Pattern.compile("");
+118: 	 // Matcher m = p.matcher(tempString);
+119: 	  //String badChar = Character.toString(tempString.charAt(4));
+120: 	  String newStr = tempString.replaceAll("\\s", "");
+121:       System.out.println(newStr);
+122:       // Read the following double and String:
+123:       System.out.println(in5.readDouble());
+124:       System.out.println(in5.readUTF());
+125:     } catch(EOFException e) {
+126:       throw new RuntimeException(e);
+127:     }
+128: 
+129:     // 6. Reading/writing random access files
+130:     RandomAccessFile rf =
+131:       new RandomAccessFile("rtest.dat", "rw");
+132:     for(int i = 0; i < 10; i++)
+133:       rf.writeDouble(i*1.414);
+134:     rf.close();
+135:     rf = new RandomAccessFile("rtest.dat", "rw");
+136:     rf.seek(5*8);
+137:     rf.writeDouble(47.0001);
+138:     rf.close();
+139:     rf = new RandomAccessFile("rtest.dat", "r");
+140:     for(int i = 0; i < 10; i++)
+141:       System.out.println("Value " + i + ": " +
+142:         rf.readDouble());
+143:     rf.close();
+144:     //monitor.expect("IOStreamDemo.out");
+145:   }
+146: } ///:~

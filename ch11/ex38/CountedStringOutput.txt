@@ -1,0 +1,21 @@
+{String: hi id: 7 hashCode(): 5418829=6, String: hi id: 1 hashCode(): 5418607=0, String: hi id: 6 hashCode(): 5418792=5, String: hi id: 9 hashCode(): 5418903=8, String: hi id: 2 hashCode(): 5418644=1, String: hi id: 3 hashCode(): 5418681=2, String: hi id: 4 hashCode(): 5418718=3, String: hi id: 5 hashCode(): 5418755=4, String: hi id: 8 hashCode(): 5418866=7, String: hi id: 10 hashCode(): 5418940=9}
+Looking up String: hi id: 1 hashCode(): 5418607
+0
+Looking up String: hi id: 2 hashCode(): 5418644
+1
+Looking up String: hi id: 3 hashCode(): 5418681
+2
+Looking up String: hi id: 4 hashCode(): 5418718
+3
+Looking up String: hi id: 5 hashCode(): 5418755
+4
+Looking up String: hi id: 6 hashCode(): 5418792
+5
+Looking up String: hi id: 7 hashCode(): 5418829
+6
+Looking up String: hi id: 8 hashCode(): 5418866
+7
+Looking up String: hi id: 9 hashCode(): 5418903
+8
+Looking up String: hi id: 10 hashCode(): 5418940
+9

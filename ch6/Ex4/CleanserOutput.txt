@@ -1,0 +1,2 @@
+scrub() overridden in NewClass.
+sterilize()

@@ -1,0 +1,13 @@
+
+SlowMap
+Size = 3, Keys: [BENIN, ALGERIA, ANGOLA]
+Values: [Luanda, Algiers, Porto-Novo]
+{ALGERIA=Algiers, ANGOLA=Luanda, BENIN=Porto-Novo}
+map.containsKey("BURKINA FASO"): false
+map.get("BURKINA FASO"): null
+map.containsValue("Ouagadougou"): false
+Size = 6, Keys: [SOoznKksKx, ANGOLA, xJcVOIeumR, BENIN, EYRetGXjnc, ALGERIA]
+First key in map: xJcVOIeumR
+Size = 6, Keys: [EYRetGXjnc, ANGOLA, ALGERIA, SOoznKksKx, BENIN, xJcVOIeumR]
+map.isEmpty(): false
+map.isEmpty(): false

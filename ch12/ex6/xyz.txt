@@ -1,0 +1,8 @@
+1 : Most of the examples so far have shown regular
+2 : expressions applied to static strings.
+3 : The following example shows one way to apply regular
+4 : expressions to search for matches in a file.
+5 : Inspired by Unix’s grep, JGrep.java takes two arguments: 
+6 : a filename and the regular expression that you want to match.
+7 : The output shows each line where a match occurs and the
+8 :  match position(s) within the line.

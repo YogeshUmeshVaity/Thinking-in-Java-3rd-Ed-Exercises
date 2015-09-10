@@ -1,0 +1,8 @@
+Bell 900
+LightOn 200
+LightOff 400
+WaterOn 600
+WaterOff 800
+ThermostatDay 1400
+FanOn 1500
+FanOff 1600

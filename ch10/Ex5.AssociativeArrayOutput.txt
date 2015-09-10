@@ -1,0 +1,23 @@
+class Ex5.Lemming
+class Ex5.Cat
+class Ex5.Hamster
+class Ex5.Rodent
+class Ex5.Hamster
+class Ex5.Hamster
+class Ex5.Hamster
+class Ex5.Cat
+class Ex5.Lemming
+class Ex5.Gerbil
+class Ex5.Gerbil
+class Ex5.Gerbil
+class Ex5.Lemming
+class Ex5.Hamster
+class Ex5.Pug
+class Ex5.Pet : 15
+class Ex5.Dog : 1
+class Ex5.Pug : 1
+class Ex5.Cat : 2
+class Ex5.Rodent : 12
+class Ex5.Gerbil : 3
+class Ex5.Hamster : 5
+class Ex5.Lemming : 3

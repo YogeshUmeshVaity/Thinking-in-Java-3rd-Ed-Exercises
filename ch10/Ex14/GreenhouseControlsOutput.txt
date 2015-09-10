@@ -1,0 +1,20 @@
+getAnnotations() : [Ljava.lang.annotation.Annotation;@67f6dc61
+getSuperclass() : class c08.controller.Controller
+getCanonicalName() : GreenhouseControls
+getClasses() : Exception in thread "main" java.lang.NoClassDefFoundError: GreenhouseControls$Terminate
+	at java.lang.Class.getDeclaredClasses0(Native Method)
+	at java.lang.Class.getDeclaredClasses(Class.java:1766)
+	at java.lang.Class$2.run(Class.java:1357)
+	at java.lang.Class$2.run(Class.java:1352)
+	at java.security.AccessController.doPrivileged(Native Method)
+	at java.lang.Class.getClasses(Class.java:1351)
+	at ClassInfo.main(ClassInfo.java:11)
+Caused by: java.lang.ClassNotFoundException: GreenhouseControls$Terminate
+	at java.net.URLClassLoader$1.run(URLClassLoader.java:366)
+	at java.net.URLClassLoader$1.run(URLClassLoader.java:355)
+	at java.security.AccessController.doPrivileged(Native Method)
+	at java.net.URLClassLoader.findClass(URLClassLoader.java:354)
+	at java.lang.ClassLoader.loadClass(ClassLoader.java:425)
+	at sun.misc.Launcher$AppClassLoader.loadClass(Launcher.java:308)
+	at java.lang.ClassLoader.loadClass(ClassLoader.java:358)
+	... 7 more

@@ -1,0 +1,6 @@
+Class name: FancyToy is interface? [false]
+Class name: HasBatteries is interface? [true]
+Class name: Waterproof is interface? [true]
+Class name: Shoots is interface? [true]
+Class name: MakesSound is interface? [true]
+Class name: Toy is interface? [false]

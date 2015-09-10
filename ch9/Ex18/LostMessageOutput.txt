@@ -1,0 +1,6 @@
+f() called
+dispose() called
+clean() called
+Exception in thread "main" A worthless exception
+	at LostMessage.clean(LostMessage.java:38)
+	at LostMessage.main(LostMessage.java:48)

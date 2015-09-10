@@ -1,0 +1,32 @@
+Testing SlowMap size 10
+put: 2.9
+get: 2.0
+iteration: 2.5
+Testing SlowMapSortedV2 size 10
+put: 10.9
+get: 1.2
+iteration: 3.4
+Testing HashMap size 100
+put: 0.03
+get: 0.07
+iteration: 0.12
+Testing SlowMap size 100
+put: 0.25
+get: 0.22
+iteration: 0.44
+Testing SlowMapSortedV2 size 100
+put: 18.58
+get: 2.38
+iteration: 0.43
+Testing HashMap size 1000
+put: 0.02
+get: 0.033
+iteration: 0.019
+Testing SlowMap size 1000
+put: 0.337
+get: 0.461
+iteration: 0.073
+Testing SlowMapSortedV2 size 1000
+put: 62.948
+get: 5.093
+iteration: 0.074

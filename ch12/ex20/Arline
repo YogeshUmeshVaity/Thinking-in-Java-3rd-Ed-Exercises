@@ -1,0 +1,10 @@
+Apply the regular expression : 
+(?i)((^[aeiou])|(\s+[aeiou]))\w+?[aeiou]\b
+to 
+
+"Arline ate eight apples and one orange while Anita hadn't any"
+
+
+This will find any words starting with vowels or spaces and vowels followed by any word character and vowel and the end of the word
+
+Arline, ate, one, orange, Anita

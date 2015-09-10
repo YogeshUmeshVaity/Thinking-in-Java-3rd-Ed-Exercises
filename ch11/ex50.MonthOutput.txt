@@ -1,0 +1,6 @@
+
+List before sort : 
+[September, March, June]
+
+List after sort : 
+[March, June, September]

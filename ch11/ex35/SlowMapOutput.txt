@@ -1,0 +1,19 @@
+{ALGERIA=Algiers, ANGOLA=Luanda, BENIN=Porto-Novo, BOTSWANA=Gaberone, BURKINA FASO=Ouagadougou, BURUNDI=Bujumbura, CAMEROON=Yaounde, CAPE VERDE=Praia, CENTRAL AFRICAN REPUBLIC=Bangui, CHAD=N'djamena, COMOROS=Moroni, CONGO=Brazzaville, DJIBOUTI=Dijibouti, EGYPT=Cairo, EQUATORIAL GUINEA=Malabo}
+
+m.clear() : 
+{}
+
+m.containsKey() : 
+true
+
+m.containsValue() : 
+true
+
+m.isEmpty() : true
+
+m.keySet() : 
+[ANGOLA, EGYPT, BURKINA FASO, BENIN, BURUNDI, BOTSWANA, CONGO, CENTRAL AFRICAN REPUBLIC, DJIBOUTI, CHAD, ALGERIA, CAPE VERDE, EQUATORIAL GUINEA, COMOROS, CAMEROON]
+{ALGERIA=Algiers, ANGOLA=Luanda, BENIN=Porto-Novo, BOTSWANA=Gaberone, BURKINA FASO=Ouagadougou, BURUNDI=Bujumbura, CAMEROON=Yaounde, CAPE VERDE=Praia, CENTRAL AFRICAN REPUBLIC=Bangui, CHAD=N'djamena, COMOROS=Moroni, CONGO=Brazzaville, DJIBOUTI=Dijibouti, EGYPT=Cairo, EQUATORIAL GUINEA=Malabo, BBQ=hello}
+
+m.values() : 
+[Porto-Novo, Ouagadougou, Praia, Dijibouti, Bangui, Algiers, Luanda, Cairo, Moroni, Malabo, Gaberone, Bujumbura, N'djamena, Yaounde, Brazzaville, hello]

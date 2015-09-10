@@ -1,0 +1,11 @@
+Thermostat on night setting
+Light is on
+Light is off
+Greenhouse water is on
+Greenhouse water is off
+Bing!
+Exception in thread "main" java.util.ConcurrentModificationException
+	at java.util.LinkedList$ListItr.checkForComodification(LinkedList.java:953)
+	at java.util.LinkedList$ListItr.remove(LinkedList.java:919)
+	at TIJEx.Ch11.ex47.controller.Controller.run(Controller.java:24)
+	at GreenhouseController.main(GreenhouseController.java:29)

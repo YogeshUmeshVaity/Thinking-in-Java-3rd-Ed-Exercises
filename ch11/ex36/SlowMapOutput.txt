@@ -1,0 +1,60 @@
+Testing SlowMap size 10
+put: 15.6
+get: 2.8
+iteration: 74.1
+Testing TreeMap size 100
+put: 5.98
+get: 3.23
+iteration: 12.11
+Testing HashMap size 100
+put: 2.12
+get: 2.84
+iteration: 14.81
+Testing LinkedHashMap size 100
+put: 2.5
+get: 2.79
+iteration: 6.89
+Testing IdentityHashMap size 100
+put: 1.52
+get: 6.82
+iteration: 17.12
+Testing WeakHashMap size 100
+put: 1.84
+get: 2.82
+iteration: 16.46
+Testing Hashtable size 100
+put: 3.35
+get: 4.76
+iteration: 14.07
+Testing SlowMap size 100
+put: 45.49
+get: 11.79
+iteration: 92.5
+Testing TreeMap size 1000
+put: 5.645
+get: 3.643
+iteration: 2.345
+Testing HashMap size 1000
+put: 1.862
+get: 3.186
+iteration: 2.89
+Testing LinkedHashMap size 1000
+put: 1.923
+get: 3.16
+iteration: 1.324
+Testing IdentityHashMap size 1000
+put: 1.321
+get: 7.054
+iteration: 3.329
+Testing WeakHashMap size 1000
+put: 1.803
+get: 3.251
+iteration: 3.07
+Testing Hashtable size 1000
+put: 2.432
+get: 3.427
+iteration: 2.946
+Testing SlowMap size 1000
+put: 72.299
+get: 23.593
+iteration: 21.15

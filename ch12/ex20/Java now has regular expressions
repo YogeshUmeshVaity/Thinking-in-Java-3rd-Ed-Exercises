@@ -1,0 +1,28 @@
+For the phrase “Java now has regular expressions” evaluate whether the following expressions will find a match:
+
+^Java
+\Breg.*
+n.w\s+h(a|i)s
+s?
+s*
+s+
+s{4}
+s{1.}
+s{0,3}
+
+
+^Java : will find the match -> Java : ^ means at the start of 		the line
+\Breg.* : won't find the match : \B means non-word boundary but 	regular word comes at start of the word
+n.w\s+h(a|i)s : will find the match -> now has
+
+s? : will find the match -> all the blank strings and s'es
+
+s* : will find the match -> all the blank string and 11-12, 26-28, 31-32,
+
+s+ : will find the match -> 11-12, 26-28, 31-32
+
+s{4} : won't find
+
+s{1.} : PatternSystaxException: Unclosed counted closure near 		index 3
+
+s{0,3} : will find match -> all the blank strings and 11-12, 		26-28, 31-32

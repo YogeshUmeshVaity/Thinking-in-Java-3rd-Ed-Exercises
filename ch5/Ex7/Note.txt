@@ -1,0 +1,1 @@
+Verified using the word protected in front of void bite();

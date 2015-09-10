@@ -1,0 +1,9 @@
+sky : blue
+grass : green
+ocean : dancing
+tree : tall
+earth : brown
+sun : warm
+extra : object
+dancing
+object

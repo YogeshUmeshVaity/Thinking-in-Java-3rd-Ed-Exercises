@@ -1,0 +1,9 @@
+Constructing objects:
+Blip3(String x, int a)
+A String 47
+Saving object:
+Blip3.writeExternal
+Recovering b3:
+Blip3 Constructor
+Blip3.readExternal
+null0

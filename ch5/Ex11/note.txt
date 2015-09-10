@@ -1,0 +1,5 @@
+either make the PackagedClass public or make the Foreign class part of the package local. Because the current PackagedClass has access type package access and it cannot be accessed from other package.
+
+To make Foreign part of the local package, you must compile it with following statement : 
+package c05.local;
+Simply moving the Foreign.class file to local directory doesn't work.
