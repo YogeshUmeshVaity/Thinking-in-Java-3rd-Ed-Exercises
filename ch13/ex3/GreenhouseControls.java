@@ -111,10 +111,10 @@ public class GreenhouseControls extends Controller {
     }
     public void action() {
       for(int i = 0; i < eventList.length; i++) {
-        eventList[i].start(); // Rerun each event
+        eventList[i].startEvent(); // Rerun each event
         addEvent(eventList[i]);
       }
-      start(); // Rerun this Event
+      startEvent(); // Rerun this Event
       addEvent(this);
     }
     public String toString() {

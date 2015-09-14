@@ -9,9 +9,9 @@ public abstract class Event {
   protected final long delayTime;
   public Event(long delayTime) {
     this.delayTime = delayTime;
-    start();
+    startEvent();
   }
-  public void start() { // Allows restarting
+  public void startEvent() { // Allows restarting
     eventTime = System.currentTimeMillis() + delayTime;
   }
   public boolean ready() {
