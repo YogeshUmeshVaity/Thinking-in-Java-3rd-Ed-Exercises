@@ -17,7 +17,7 @@ public class Controller {
         Event e = (Event)eventList.get(i);
         if(e.ready()) {
           System.out.println(e);
-          e.action();
+          e.start();
           eventList.remove(i);
         }
       }

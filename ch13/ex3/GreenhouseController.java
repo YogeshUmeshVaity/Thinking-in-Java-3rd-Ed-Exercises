@@ -9,7 +9,7 @@ public class GreenhouseController {
     GreenhouseControls gc = new GreenhouseControls();
     // Instead of hard-wiring, you could parse
     // configuration information from a text file here:
-    gc.addEvent(gc.new Bell(900));
+    //gc.addEvent(gc.new Bell(900));
     Event[] eventList = {
       gc.new ThermostatNight(0),
       gc.new LightOn(200),

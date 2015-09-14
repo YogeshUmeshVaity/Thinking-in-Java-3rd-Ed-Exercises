@@ -4,7 +4,7 @@
 // www.BruceEckel.com. See copyright notice in CopyRight.txt.
 // This control framework
 
-public abstract class Event {
+public abstract class Event extends Thread {
   private long eventTime;
   protected final long delayTime;
   public Event(long delayTime) {
@@ -17,5 +17,5 @@ public abstract class Event {
   public boolean ready() {
     return System.currentTimeMillis() >= eventTime;
   }
-  public abstract void action();
+  public abstract void run();
 } ///:~
