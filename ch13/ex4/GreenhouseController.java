@@ -30,7 +30,7 @@ public class GreenhouseController {
       public void run() {
         gc.run();
       }
-      }, 0);
+    }, 0);
     if(args.length == 1)
       gc.addEvent(gc.new Terminate(Integer.parseInt(args[0])));
   }
