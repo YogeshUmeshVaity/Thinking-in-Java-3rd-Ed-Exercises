@@ -24,7 +24,7 @@ public class GreenhouseControls extends Controller {
       try {
         sleep(rnd.nextInt(3000));
       } catch(InterruptedException e) {
-        throw new RuntimeException();
+        throw new RuntimeException(e);
       }
      }
     }
@@ -42,7 +42,7 @@ public class GreenhouseControls extends Controller {
       try {
         sleep(rnd.nextInt(3000));
       } catch(InterruptedException e) {
-        throw new RuntimeException();
+        throw new RuntimeException(e);
       }
      }
     }
@@ -60,7 +60,7 @@ public class GreenhouseControls extends Controller {
       try {
         sleep(rnd.nextInt(3000));
       } catch(InterruptedException e) {
-        throw new RuntimeException();
+        throw new RuntimeException(e);
       }
      }
     }
@@ -79,7 +79,7 @@ public class GreenhouseControls extends Controller {
       try {
         sleep(rnd.nextInt(3000));
       } catch(InterruptedException e) {
-        throw new RuntimeException();
+        throw new RuntimeException(e);
       }
      }
     }
@@ -99,7 +99,7 @@ public class GreenhouseControls extends Controller {
       try {
         sleep(rnd.nextInt(3000));
       } catch(InterruptedException e) {
-        throw new RuntimeException();
+        throw new RuntimeException(e);
       }
      }
     }
@@ -118,7 +118,7 @@ public class GreenhouseControls extends Controller {
       try {
         sleep(rnd.nextInt(3000));
       } catch(InterruptedException e) {
-        throw new RuntimeException();
+        throw new RuntimeException(e);
       }
      }
     }
@@ -138,7 +138,7 @@ public class GreenhouseControls extends Controller {
 		 try {
            sleep(rnd.nextInt(3000));
            } catch(InterruptedException e) {
-             throw new RuntimeException();
+             throw new RuntimeException(e);
            }
 	     }
 	 }
@@ -155,7 +155,7 @@ public class GreenhouseControls extends Controller {
 		 try {
            sleep(rnd.nextInt(3000));
            } catch(InterruptedException e) {
-           throw new RuntimeException();
+           throw new RuntimeException(e);
          }
 	  }
 	 }
@@ -168,32 +168,12 @@ public class GreenhouseControls extends Controller {
       try {
         sleep(rnd.nextInt(6000));
       } catch(InterruptedException e) {
-        throw new RuntimeException();
+        throw new RuntimeException(e);
       }
      }
     }
     public String toString() { return "Bing!"; }
   }
-//  public class Restart extends Event {
-//    private Event[] eventList;
-//    public Restart(long delayTime, Event[] eventList) {
-//      super(delayTime);
-//      this.eventList = eventList;
-//      for(int i = 0; i < eventList.length; i++)
-//        addEvent(eventList[i]);
-//    }
-//    public void run() {
-//      for(int i = 0; i < eventList.length; i++) {
-//        eventList[i].startEvent(); // Rerun each event
-//        addEvent(eventList[i]);
-//      }
-//      startEvent(); // Rerun this Event
-//      //addEvent(this);
-//    }
-//    public String toString() {
-//      return "Restarting system";
-//    }
-//  }
   public class Startup {
     private Event[] eventList;
     public Startup(Event[] eventList) {
@@ -204,7 +184,16 @@ public class GreenhouseControls extends Controller {
     }
   }
   public class Terminate extends Event {
+    private long sleepTime;
+    public Terminate(long sleepTime) {
+      this.sleepTime = sleepTime;
+    }
     public void run() {
+      try {
+        sleep(sleepTime);
+      } catch(InterruptedException e) {
+        throw new RuntimeException(e);
+      }
       System.out.println("Terminating"); 
       System.exit(0);
     }

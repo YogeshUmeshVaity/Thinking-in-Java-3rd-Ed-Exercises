@@ -21,9 +21,8 @@ public class GreenhouseController {
     };
     //gc.addEvent(gc.new Restart(2000, eventList));
     GreenhouseControls.Startup st = gc.new Startup(eventList);
-//    if(args.length == 1)
-//      gc.addEvent(
-//        gc.new Terminate(Integer.parseInt(args[0])));
+    if(args.length == 1)
+      gc.addEvent(gc.new Terminate(Integer.parseInt(args[0])));
     gc.run();
   }
 } ///:~
