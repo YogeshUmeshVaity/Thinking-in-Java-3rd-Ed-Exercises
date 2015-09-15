@@ -4,6 +4,8 @@
 // From 'Thinking in Java, 3rd ed.' (c) Bruce Eckel 2002
 // www.BruceEckel.com. See copyright notice in CopyRight.txt.
 
+import java.util.*;
+
 public class GreenhouseController {
   public static void main(String[] args) {
     GreenhouseControls gc = new GreenhouseControls();
@@ -21,8 +23,15 @@ public class GreenhouseController {
     };
     //gc.addEvent(gc.new Restart(2000, eventList));
     GreenhouseControls.Startup st = gc.new Startup(eventList);
+    
+    Timer timer = new Timer();
+    timer.schedule(new TimerTask() {
+      @Override
+      public void run() {
+        gc.run();
+      }
+      }, 0);
     if(args.length == 1)
       gc.addEvent(gc.new Terminate(Integer.parseInt(args[0])));
-    gc.run();
   }
 } ///:~
