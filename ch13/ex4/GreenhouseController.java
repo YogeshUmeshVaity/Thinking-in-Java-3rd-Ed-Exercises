@@ -9,15 +9,15 @@ public class GreenhouseController {
     GreenhouseControls gc = new GreenhouseControls();
     //gc.addEvent(gc.new Bell(900));
     Event[] eventList = {
-      gc.new ThermostatNight(),
-      gc.new LightOn(),
-      gc.new LightOff(),
-      gc.new WaterOn(),
-      gc.new WaterOff(),
-      gc.new ThermostatDay(),
-	    gc.new FanOn(),
-	    gc.new FanOff(),
-	    gc.new Bell()
+      gc.new ThermostatNight(0), //0
+      gc.new LightOn(200),
+      gc.new LightOff(400),
+      gc.new WaterOn(600), // 600
+      gc.new WaterOff(800), // 800
+      gc.new ThermostatDay(1400), // 1400
+	    gc.new FanOn(1500), // 1500
+	    gc.new FanOff(1600), // 1600
+	    gc.new Bell(900) // 900
     };
     //gc.addEvent(gc.new Restart(2000, eventList));
     GreenhouseControls.Startup st = gc.new Startup(eventList);
