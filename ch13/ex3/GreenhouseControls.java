@@ -17,8 +17,10 @@ public class GreenhouseControls extends Controller {
      while(true) {
       // Put hardware control code here to
       // physically turn on the light.
-      light = true;
-      System.out.println("Light is on");
+      if(!light) {
+        light = true;
+        System.out.println("Light is on");
+      }
       try {
         sleep(rnd.nextInt(3000));
       } catch(InterruptedException e) {
@@ -33,8 +35,10 @@ public class GreenhouseControls extends Controller {
      while(true) {
       // Put hardware control code here to
       // physically turn off the light.
-      light = false;
-      System.out.println("Light is on");
+      if(light) {
+        light = false;
+        System.out.println("Light is off");
+      }
       try {
         sleep(rnd.nextInt(3000));
       } catch(InterruptedException e) {
@@ -49,8 +53,10 @@ public class GreenhouseControls extends Controller {
     public void run() {
      while(true) {
       // Put hardware control code here.
-      water = true;
-      System.out.println("Greenhouse water is on");
+      if(!water) {
+        water = true;
+        System.out.println("Greenhouse water is on");
+      }
       try {
         sleep(rnd.nextInt(3000));
       } catch(InterruptedException e) {
@@ -66,8 +72,10 @@ public class GreenhouseControls extends Controller {
     public void run() {
      while(true) {
       // Put hardware control code here.
-      water = false;
-      System.out.println("Greenhouse water is off");
+      if(water) {
+        water = false;
+        System.out.println("Greenhouse water is off");
+      }
       try {
         sleep(rnd.nextInt(3000));
       } catch(InterruptedException e) {
@@ -84,8 +92,10 @@ public class GreenhouseControls extends Controller {
     public void run() {
      while(true) {
       // Put hardware control code here.
-      thermostat = "Night";
-      System.out.println("Thermostat on night setting");
+      if(thermostat.equals("Day")) {
+        thermostat = "Night";
+        System.out.println("Thermostat on night setting");
+      }
       try {
         sleep(rnd.nextInt(3000));
       } catch(InterruptedException e) {
@@ -101,8 +111,10 @@ public class GreenhouseControls extends Controller {
     public void run() {
      while(true) {
       // Put hardware control code here.
-      thermostat = "Day";
-      System.out.println("Thermostat on day setting");
+      if(thermostat.equals("Night")) {
+        thermostat = "Day";
+        System.out.println("Thermostat on day setting");
+      }
       try {
         sleep(rnd.nextInt(3000));
       } catch(InterruptedException e) {
@@ -119,8 +131,10 @@ public class GreenhouseControls extends Controller {
 	 public void run() {
 	  while(true) {
 		 // Hardware control to turn on fan here...
-		 fan = true;
-		 System.out.println("Fan is on");
+		 if(!fan) {
+		   fan = true;
+		   System.out.println("Fan is on");
+		 }
 		 try {
            sleep(rnd.nextInt(3000));
            } catch(InterruptedException e) {
@@ -134,8 +148,10 @@ public class GreenhouseControls extends Controller {
 	 public void run() {
 	  while(true) {
 		 // Hardware control to turn off fan here...
-		 fan = false;
-		 System.out.println("Fan is off");
+		 if(fan) {
+		   fan = false;
+		   System.out.println("Fan is off");
+		 }
 		 try {
            sleep(rnd.nextInt(3000));
            } catch(InterruptedException e) {
@@ -150,7 +166,7 @@ public class GreenhouseControls extends Controller {
      while(true) {
       System.out.println("Bing!");
       try {
-        sleep(rnd.nextInt(3000));
+        sleep(rnd.nextInt(6000));
       } catch(InterruptedException e) {
         throw new RuntimeException();
       }
