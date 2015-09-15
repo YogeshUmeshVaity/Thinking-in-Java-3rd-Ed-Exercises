@@ -15,8 +15,9 @@ public class GreenhouseController {
       gc.new WaterOn(),
       gc.new WaterOff(),
       gc.new ThermostatDay(),
-	  gc.new FanOn(),
-	  gc.new FanOff()
+	    gc.new FanOn(),
+	    gc.new FanOff(),
+	    gc.new Bell()
     };
     //gc.addEvent(gc.new Restart(2000, eventList));
     GreenhouseControls.Startup st = gc.new Startup(eventList);
