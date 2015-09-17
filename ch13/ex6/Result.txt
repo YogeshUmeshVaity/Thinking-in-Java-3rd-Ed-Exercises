@@ -1,0 +1,9 @@
+# 10000 threads
+The Timer is not showing scaling for some reason.
+Sleep method seems to hava better performance.
+
+# 100000 threads
+Timer : goes out of memory
+Sleep : completes gracefully
+
+Conclusion : Timer doesn't seems to be scaling O(log n) or I'm missing something.
