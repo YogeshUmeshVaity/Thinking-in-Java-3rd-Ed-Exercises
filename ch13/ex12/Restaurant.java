@@ -131,7 +131,8 @@ public class Restaurant {
   Queue incomingOrders = new LinkedList(); // incoming for chef
   Queue outgoingOrders = new LinkedList(); // outgoing for chef
   
-  public static void main(String[] args) {
+  public static void main(String[] args)
+   throws InterruptedException {
     Restaurant restaurant = new Restaurant();
     
     WaitPerson waitPerson = 
@@ -153,5 +154,8 @@ public class Restaurant {
     Chef chef4 = new Chef("Chef Birla", restaurant);
     Chef chef5 = new Chef("Chef Tata", restaurant);
     Chef chef6 = new Chef("Chef KrishnaMurti", restaurant);
+    
+    Thread.sleep(9000);
+    System.exit(0);
   }
 } ///:~
