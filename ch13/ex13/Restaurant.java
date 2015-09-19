@@ -164,7 +164,7 @@ class OrderRequest {
   private static int i = 0;
   private int count = i++;
   @Override
-  public String toString() { return "Order request " + count; }
+  public String toString() { return "" + count; }
   
 }
 
@@ -184,12 +184,12 @@ class Customer extends Thread {
       synchronized(restaurant.customerOrders) {
         req = new OrderRequest(this);
         System.out.println(Thread.currentThread().getName()
-        + " placed an order request");
+        + " placed an order request " + req);
         restaurant.customerOrders.add(req);
       }
       synchronized(this) {
         try {
-          System.out.println(Thread.currentThread.getName()
+          System.out.println(Thread.currentThread().getName()
           + " is waiting for " + req);
           wait();
         } catch(InterruptedException e) {
@@ -197,7 +197,7 @@ class Customer extends Thread {
         }
       }
       // WaitPerson notifies customer when the order is ready
-      System.out.println(Thread.currentThread.getName() 
+      System.out.println(Thread.currentThread().getName() 
       + " received the " + req);
       // Time for customer to eat
       try {
@@ -243,28 +243,35 @@ public class Restaurant {
     
     /* Recruit WaitPersons and Chefs simultaneiously */
     
+    Customer customer1 = new Customer("Tendulkar", restaurant);
     WaitPerson waitPerson = 
     new WaitPerson("WP Chhotu", restaurant);
     Chef chef = new Chef("Chef Singhania", restaurant);
     
+    Customer customer2 = new Customer("Dravid", restaurant);
     WaitPerson waitPerson2 = 
     new WaitPerson("WP Gotu", restaurant);
     Chef chef2 = new Chef("Chef Malya", restaurant);
     
+    Customer customer3 = new Customer("Ganguly", restaurant);
     WaitPerson waitPerson3 = 
     new WaitPerson("WP Motu", restaurant);
     Chef chef3 = new Chef("Chef Ambani", restaurant);
     
+    Customer customer4 = new Customer("Laxman", restaurant);
     WaitPerson waitPerson4 = 
     new WaitPerson("WP Pinku", restaurant);
     Chef chef4 = new Chef("Chef Birla", restaurant);
     
+    Customer customer5 = new Customer("Kumble", restaurant);
     WaitPerson waitPerson5 = 
     new WaitPerson("WP Lambu", restaurant);
     Chef chef5 = new Chef("Chef Tata", restaurant);
     
+    Customer customer6 = new Customer("Harsha", restaurant);
     WaitPerson waitPerson6 = 
     new WaitPerson("WP Dhondu", restaurant);
     Chef chef6 = new Chef("Chef KrishnaMurti", restaurant);
+    
   }
 }
