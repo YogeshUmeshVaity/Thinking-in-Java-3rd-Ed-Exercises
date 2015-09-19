@@ -11,14 +11,26 @@ import com.bruceeckel.simpletest.*;
 
 class Order {
   // Reference that Chef will use to notify
-  
+  public WaitPerson wp;
   private static int i = 0;
   private int count = i++;
-  public Order() {
+  public Order(WaitPerson wp) {
+    this.wp = wp;
     if(count == 10) {
       System.out.println("Out of food, closing");
       System.exit(0);
     }
+  }
+  // To notify the respective WaitPerson
+  public void notifyWP() {
+    synchronized(wp) {
+      wp.notify();
+    }
+  }
+  @Override
+  public boolean equals(Object o) {
+    Order ord = (Order)o;
+    return ((o instanceof Order) && (count == ord.count));
   }
   public String toString() { return "Order " + count; }
 }
@@ -32,17 +44,33 @@ class WaitPerson extends Thread {
   }
   public void run() {
     while(true) {
-      while(restaurant.order == null)
-        synchronized(this) {
-          try {
-            wait();
-          } catch(InterruptedException e) {
-            throw new RuntimeException(e);
+      // WaitPerson generates an order and adds it to the
+      // incomingOrders and goes on wait()
+      synchronized(restaurant.outgoingOrders) {
+        Order order = new Order(this);
+        restaurant.incomingOrders.add(order);
+      }
+      synchronized(this) {
+        try {
+          wait();
+        } catch(InterruptedException e) {
+          throw new RuntimeException(e);
+        }
+      }
+      // When he wakes up, he tries to retrieve his order
+      // from the outgoingOrders
+      synchronized(restaurant.outgoingOrders) {
+        Iterator it = restaurant.outgoingOrders.iterator();
+        while(it.hasNext()) {
+          Order tempOrd = (Order)it.next();
+          if(tempOrd.equals(order)) {
+            System.out.println(Thread.currentThread()
+            .getName() + " got " + restaurant.order);
+            it.remove(); // gives it to the customer
+            break;
           }
         }
-      System.out.println(Thread.currentThread().getName() 
-      + " got " + restaurant.order);
-      restaurant.order = null;
+      }
     }
   }
 }
@@ -75,8 +103,8 @@ class Chef extends Thread {
 
 public class Restaurant {
   private static Test monitor = new Test();
-  Queue incomingOrders = new LinkedList();
-  Queue outgoingOrders = new LinkedList();
+  Queue incomingOrders = new LinkedList(); // incoming for chef
+  Queue outgoingOrders = new LinkedList(); // outgoing for chef
   //Order order; // Package access
   public static void main(String[] args) {
     Restaurant restaurant = new Restaurant();
