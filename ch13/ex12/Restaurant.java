@@ -131,5 +131,6 @@ public class Restaurant {
     new WaitPerson("WP Gotu", restaurant);
     
     Chef chef = new Chef("Chef Singhania", restaurant);
+    Chef chef1 = new Chef("Chef Malya", restaurant);
   }
 } ///:~
