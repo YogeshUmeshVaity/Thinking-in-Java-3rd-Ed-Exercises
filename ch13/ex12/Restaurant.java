@@ -16,11 +16,8 @@ class Order {
   private int count = i++;
   public Order(WaitPerson wp) {
     this.wp = wp;
-//    if(count == 10) {
-//      System.out.println("Out of food, closing");
-//      System.exit(0);
-//    }
   }
+  
   public boolean isLastOrder() {
     if(count >= MAX_ORDERS) return true;
     else return false;
@@ -37,6 +34,20 @@ class Order {
     return ((o instanceof Order) && (count == ord.count));
   }
   public String toString() { return "Order " + count; }
+}
+
+// For closing the restaurant
+class OrderCheck extends Thread {
+  @Override
+  public void run() {
+    try {
+      sleep(6000);
+    } catch(InterruptedException e) {
+      throw new RuntimeException(e);
+    }
+    System.out.println("*** Out of food, closing...***");
+    System.exit(0);
+  }
 }
 
 class WaitPerson extends Thread {
@@ -59,7 +70,9 @@ class WaitPerson extends Thread {
           + " generated " + order);
           restaurant.incomingOrders.add(order);
         } else if(order.isLastOrder()) {
-          lastOrder = true;
+          OrderCheck oc = new OrderCheck();
+          oc.start();
+          return;
         }
         
       }
@@ -134,28 +147,53 @@ public class Restaurant {
   public static void main(String[] args)
    throws InterruptedException {
     Restaurant restaurant = new Restaurant();
+
+    /* First recruit all WaitPersons and then recruit Chefs 
+     */    
+//    WaitPerson waitPerson = 
+//    new WaitPerson("WP Chhotu", restaurant);
+//    WaitPerson waitPerson2 = 
+//    new WaitPerson("WP Gotu", restaurant);
+//    WaitPerson waitPerson3 = 
+//    new WaitPerson("WP Motu", restaurant);
+//    WaitPerson waitPerson4 = 
+//    new WaitPerson("WP Pinku", restaurant);
+//    WaitPerson waitPerson5 = 
+//    new WaitPerson("WP Lambu", restaurant);
+//    WaitPerson waitPerson6 = 
+//    new WaitPerson("WP Dhondu", restaurant);
+//    
+//    Chef chef = new Chef("Chef Singhania", restaurant);
+//    Chef chef2 = new Chef("Chef Malya", restaurant);
+//    Chef chef3 = new Chef("Chef Ambani", restaurant);
+//    Chef chef4 = new Chef("Chef Birla", restaurant);
+//    Chef chef5 = new Chef("Chef Tata", restaurant);
+//    Chef chef6 = new Chef("Chef KrishnaMurti", restaurant);
+    
+    /* Recruit WaitPersons and Chefs simultaneiously */
     
     WaitPerson waitPerson = 
     new WaitPerson("WP Chhotu", restaurant);
+    Chef chef = new Chef("Chef Singhania", restaurant);
+    
     WaitPerson waitPerson2 = 
     new WaitPerson("WP Gotu", restaurant);
+    Chef chef2 = new Chef("Chef Malya", restaurant);
+    
     WaitPerson waitPerson3 = 
     new WaitPerson("WP Motu", restaurant);
+    Chef chef3 = new Chef("Chef Ambani", restaurant);
+    
     WaitPerson waitPerson4 = 
     new WaitPerson("WP Pinku", restaurant);
+    Chef chef4 = new Chef("Chef Birla", restaurant);
+    
     WaitPerson waitPerson5 = 
     new WaitPerson("WP Lambu", restaurant);
+    Chef chef5 = new Chef("Chef Tata", restaurant);
+    
     WaitPerson waitPerson6 = 
     new WaitPerson("WP Dhondu", restaurant);
-    
-    Chef chef = new Chef("Chef Singhania", restaurant);
-    Chef chef2 = new Chef("Chef Malya", restaurant);
-    Chef chef3 = new Chef("Chef Ambani", restaurant);
-    Chef chef4 = new Chef("Chef Birla", restaurant);
-    Chef chef5 = new Chef("Chef Tata", restaurant);
     Chef chef6 = new Chef("Chef KrishnaMurti", restaurant);
-    
-    Thread.sleep(9000);
-    System.exit(0);
   }
-} ///:~
+}
