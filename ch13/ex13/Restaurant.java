@@ -139,10 +139,66 @@ class Chef extends Thread {
   }
 }
 
+// Represents order details that customer requests
+class OrderRequest {
+  // fields with order details go here...
+  public Customer customer;
+  public OrderRequest(Customer cust) {
+    this.customer = cust;
+  } 
+  private static int i = 0;
+  private int count = i++;
+  @Override
+  public String toString() { return "Order request " + count; }
+  
+}
+
+class Customer extends Thread {
+  private Restaurant restaurant;
+  public Customer(String custName, Restaurant r) {
+    super(custName);
+    restaurant = r;
+    start();
+  }
+  private OrderRequest req;
+  @Override
+  public void run() {
+    while(true) {
+      // Customer creates a request 
+      // and adds it to the customerOrders then waits
+      synchronized(restaurant.customerOrders) {
+        req = new OrderRequest(this);
+        System.out.println(Thread.currentThread().getName()
+        + " placed an order request");
+        restaurant.customerOrders.add(req);
+      }
+      synchronized(this) {
+        try {
+          System.out.println(Thread.currentThread.getName()
+          + " is waiting for " + req);
+          wait();
+        } catch(InterruptedException e) {
+          throw new RuntimeException(e);
+        }
+      }
+      // WaitPerson notifies customer when the order is ready
+      System.out.println(Thread.currentThread.getName() 
+      + " received the " + req);
+      // Time for customer to eat
+      try {
+        sleep(3000);
+      } catch(InterruptedException e) {
+        throw new RuntimeException(e);
+      }
+    }
+  }
+}
+
 public class Restaurant {
   
   Queue incomingOrders = new LinkedList(); // incoming for chef
   Queue outgoingOrders = new LinkedList(); // outgoing for chef
+  Queue customerOrders = new LinkedList();
   
   public static void main(String[] args)
    throws InterruptedException {
