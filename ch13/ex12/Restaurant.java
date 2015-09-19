@@ -118,12 +118,18 @@ class Chef extends Thread {
 
 public class Restaurant {
   private static Test monitor = new Test();
+  
   Queue incomingOrders = new LinkedList(); // incoming for chef
   Queue outgoingOrders = new LinkedList(); // outgoing for chef
+  
   public static void main(String[] args) {
     Restaurant restaurant = new Restaurant();
+    
     WaitPerson waitPerson = 
     new WaitPerson("WP Chhotu", restaurant);
+    WaitPerson waitPerson2 = 
+    new WaitPerson("WP Gotu", restaurant);
+    
     Chef chef = new Chef("Chef Singhania", restaurant);
   }
 } ///:~
