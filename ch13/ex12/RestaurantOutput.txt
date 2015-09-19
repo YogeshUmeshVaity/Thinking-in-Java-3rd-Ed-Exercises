@@ -1,11 +1,51 @@
-Order up! Chhotu got Order 0
-Order up! Chhotu got Order 1
-Order up! Chhotu got Order 2
-Order up! Chhotu got Order 3
-Order up! Chhotu got Order 4
-Order up! Chhotu got Order 5
-Order up! Chhotu got Order 6
-Order up! Chhotu got Order 7
-Order up! Chhotu got Order 8
-Order up! Chhotu got Order 9
+WP Chhotu generated Order 0
+WP Chhotu is on wait
+Chef Singhania is preparing Order 0
+Order 0 is up!
+WP Chhotu got Order 0
+WP Chhotu generated Order 1
+WP Chhotu is on wait
+Chef Singhania is preparing Order 1
+Order 1 is up!
+WP Chhotu got Order 1
+WP Chhotu generated Order 2
+WP Chhotu is on wait
+Chef Singhania is preparing Order 2
+Order 2 is up!
+WP Chhotu got Order 2
+WP Chhotu generated Order 3
+WP Chhotu is on wait
+Chef Singhania is preparing Order 3
+Order 3 is up!
+WP Chhotu got Order 3
+WP Chhotu generated Order 4
+WP Chhotu is on wait
+Chef Singhania is preparing Order 4
+Order 4 is up!
+WP Chhotu got Order 4
+WP Chhotu generated Order 5
+WP Chhotu is on wait
+Chef Singhania is preparing Order 5
+Order 5 is up!
+WP Chhotu got Order 5
+WP Chhotu generated Order 6
+WP Chhotu is on wait
+Chef Singhania is preparing Order 6
+Order 6 is up!
+WP Chhotu got Order 6
+WP Chhotu generated Order 7
+WP Chhotu is on wait
+Chef Singhania is preparing Order 7
+Order 7 is up!
+WP Chhotu got Order 7
+WP Chhotu generated Order 8
+WP Chhotu is on wait
+Chef Singhania is preparing Order 8
+Order 8 is up!
+WP Chhotu got Order 8
+WP Chhotu generated Order 9
+WP Chhotu is on wait
+Chef Singhania is preparing Order 9
+Order 9 is up!
+WP Chhotu got Order 9
 Out of food, closing
