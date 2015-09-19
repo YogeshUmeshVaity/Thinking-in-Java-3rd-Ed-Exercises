@@ -11,11 +11,13 @@ import java.util.*;
 class Order {
   // Reference that Chef will use to notify
   public WaitPerson wp;
+  public OrderRequest req;
   private final int MAX_ORDERS = 10;
   private static int i = 0;
   private int count = i++;
-  public Order(WaitPerson wp) {
+  public Order(WaitPerson wp, OrderRequest req) {
     this.wp = wp;
+    this.req = req;
   }
   
   public boolean isLastOrder() {
@@ -58,23 +60,34 @@ class WaitPerson extends Thread {
     start();
   }
   private Order order;
+  private OrderRequest tempReq;
   private boolean lastOrder = false;
   public void run() {
     while(true) {
-      // WaitPerson generates an order and adds it to the
+      // WaitPerson generates an order using customerOrders 
+      // and adds it to the
       // incomingOrders and goes on wait()
-      synchronized(restaurant.outgoingOrders) {
-        order = new Order(this);
+      // synchronized(restaurant.outgoingOrders) {
+      synchronized(restaurant.customerOrders) {
+        if(!restaurant.customerOrders.isEmpty()) {
+          tempReq = 
+          (OrderRequest)restaurant.customerOrders.poll();
+          order = new Order(this, tempReq);
+        } else {
+            System.out.println("No order requests...");
+            throw new RuntimeException();
+        }
+      }
+      synchronized(restaurant.incomingOrders) {
         if(!order.isLastOrder()) {
           System.out.println(Thread.currentThread().getName() 
           + " generated " + order);
           restaurant.incomingOrders.add(order);
         } else if(order.isLastOrder()) {
-          OrderCheck oc = new OrderCheck();
-          oc.start();
-          return;
+            OrderCheck oc = new OrderCheck();
+            oc.start();
+            return;
         }
-        
       }
       synchronized(this) {
         try {
@@ -94,6 +107,8 @@ class WaitPerson extends Thread {
           if(tempOrd.equals(order)) {
             System.out.println(Thread.currentThread()
             .getName() + " got " + tempOrd);
+            // Give the order to respective customer
+            tempOrd.req.customer.notify();
             it.remove(); // gives it to the customer
             break;
           }
