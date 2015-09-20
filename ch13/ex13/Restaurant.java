@@ -10,7 +10,7 @@ import java.util.*;
 
 final class Capacity {
   private Capacity() {}
-  public static int MAX_ORDERS = 100;
+  public static final int MAX_ORDERS = 100;
 }
 
 class Order {
@@ -109,7 +109,7 @@ class WaitPerson extends Thread {
       synchronized(this) {
         try {
           System.out.println(Thread.currentThread().getName() 
-          + " is on wait");
+          + " is on wait for " + order);
           wait();
         } catch(InterruptedException e) {
           System.out.println("WaitPerson's wait interrupted.");
@@ -233,7 +233,7 @@ class Customer extends Thread {
       synchronized(this) {
         try {
           System.out.println(Thread.currentThread().getName()
-          + " is waiting for " + req);
+          + " is waiting for order " + req);
           wait();
         } catch(InterruptedException e) {
           System.out.println("Customer's wait interrupted.");
@@ -242,7 +242,7 @@ class Customer extends Thread {
       }
       // WaitPerson notifies customer when the order is ready
       System.out.println(Thread.currentThread().getName() 
-      + " received the " + req);
+      + " received the order " + req);
       // Time for customer to eat
       try {
         sleep(3000);
