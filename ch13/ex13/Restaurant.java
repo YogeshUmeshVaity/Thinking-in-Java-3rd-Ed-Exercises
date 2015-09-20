@@ -45,6 +45,7 @@ class OrderCheck extends Thread {
     try {
       sleep(12000);
     } catch(InterruptedException e) {
+      System.out.println("OrderCheck sleep interrupted.");
       throw new RuntimeException(e);
     }
     System.out.println("*** Out of food, closing...***");
@@ -61,6 +62,7 @@ class WaitPerson extends Thread {
   }
   private Order order;
   private OrderRequest tempReq;
+  private Order tempOrd;
   private boolean lastOrder = false;
   public void run() {
     while(true) {
@@ -95,23 +97,30 @@ class WaitPerson extends Thread {
           + " is on wait");
           wait();
         } catch(InterruptedException e) {
+          System.out.println("WaitPerson's wait interrupted.");
           throw new RuntimeException(e);
         }
       }
       // When he wakes up, he tries to retrieve his order
       // from the outgoingOrders
+      boolean notifyCustomer = false;
       synchronized(restaurant.outgoingOrders) {
         Iterator it = restaurant.outgoingOrders.iterator();
         while(it.hasNext()) {
-          Order tempOrd = (Order)it.next();
+          tempOrd = (Order)it.next();
           if(tempOrd.equals(order)) {
             System.out.println(Thread.currentThread()
             .getName() + " got " + tempOrd);
-            // Give the order to respective customer
-            tempOrd.req.customer.notify();
+            // Set the flag to notify customer
+            notifyCustomer = true;
             it.remove(); // gives it to the customer
             break;
           }
+        }
+      }
+      if(notifyCustomer) {
+        synchronized(tempOrd.req.customer) {
+          tempOrd.req.customer.notify();
         }
       }
     }
@@ -138,6 +147,7 @@ class Chef extends Thread {
             // Time taken by Chef to prepare the order
             sleep(100);
           } catch(InterruptedException e) {
+            System.out.println("Chef's sleep interrupted");
             throw new RuntimeException(e);
           }
           // add the prepared order to outgoingOrders
@@ -193,6 +203,7 @@ class Customer extends Thread {
           + " is waiting for " + req);
           wait();
         } catch(InterruptedException e) {
+          System.out.println("Customer's wait interrupted.");
           throw new RuntimeException(e);
         }
       }
@@ -203,6 +214,8 @@ class Customer extends Thread {
       try {
         sleep(3000);
       } catch(InterruptedException e) {
+        System.out.println(
+        "Customer's eating time sleep interrupted.");
         throw new RuntimeException(e);
       }
     }
