@@ -77,7 +77,7 @@ class WaitPerson extends Thread {
           order = new Order(this, tempReq);
         } else {
             System.out.println("No order requests...");
-            throw new RuntimeException();
+            //throw new RuntimeException();
         }
       }
       synchronized(restaurant.incomingOrders) {
@@ -112,17 +112,17 @@ class WaitPerson extends Thread {
             System.out.println(Thread.currentThread()
             .getName() + " got " + tempOrd);
             // Set the flag to notify customer
-            notifyCustomer = true;
+            tempOrd.req.notifyCust();
             it.remove(); // gives it to the customer
             break;
           }
         }
       }
-      if(notifyCustomer) {
-        synchronized(tempOrd.req.customer) {
-          tempOrd.req.customer.notify();
-        }
-      }
+//      if(notifyCustomer) {
+//        synchronized(tempOrd.req.customer) {
+//          tempOrd.req.customer.notify();
+//        }
+//      }
     }
   }
 }
@@ -173,6 +173,11 @@ class OrderRequest {
   } 
   private static int i = 0;
   private int count = i++;
+  public void notifyCust() {
+    synchronized(customer) {
+      customer.notify();
+    }
+  }
   @Override
   public String toString() { return "" + count; }
   
