@@ -71,6 +71,15 @@ class WaitPerson extends Thread {
       // incomingOrders and goes on wait()
       // synchronized(restaurant.outgoingOrders) {
       synchronized(restaurant.customerOrders) {
+        // sleep if there are no customerOrders
+        if(restaurant.customerOrders.isEmpty()) {
+          try {
+            sleep(1800);
+          } catch(InterruptedException e) {
+            System.out.println("WaitPerson's sleep interrupted" 
+            + " while waiting for customerOrders");
+          }
+        }
         if(!restaurant.customerOrders.isEmpty()) {
           tempReq = 
           (OrderRequest)restaurant.customerOrders.poll();
