@@ -12,7 +12,7 @@ class Order {
   // Reference that Chef will use to notify
   public WaitPerson wp;
   public OrderRequest req;
-  private final int MAX_ORDERS = 10;
+  private final int MAX_ORDERS = 100;
   private static int i = 0;
   private int count = i++;
   public Order(WaitPerson wp, OrderRequest req) {
@@ -71,13 +71,14 @@ class WaitPerson extends Thread {
       // incomingOrders and goes on wait()
       // synchronized(restaurant.outgoingOrders) {
       synchronized(restaurant.customerOrders) {
-        // sleep if there are no customerOrders
+        // sleep, if there are no customerOrders
         if(restaurant.customerOrders.isEmpty()) {
           try {
-            sleep(1800);
+            restaurant.customerOrders.wait();
           } catch(InterruptedException e) {
-            System.out.println("WaitPerson's sleep interrupted" 
+            System.out.println("WaitPerson interrupted" 
             + " while waiting for customerOrders");
+            throw new RuntimeException();
           }
         }
         if(!restaurant.customerOrders.isEmpty()) {
@@ -210,6 +211,8 @@ class Customer extends Thread {
         System.out.println(Thread.currentThread().getName()
         + " placed an order request " + req);
         restaurant.customerOrders.add(req);
+        // notifies one of the WaitPerson's after making request
+        restaurant.customerOrders.notify();
       }
       synchronized(this) {
         try {
