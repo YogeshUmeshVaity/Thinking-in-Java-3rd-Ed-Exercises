@@ -22,12 +22,11 @@ class Philosopher extends Thread {
   private static Random rand = new Random();
   private static int counter = 0;
   private int number = counter++;
-  private Chopstick leftChopstick;
-  private Chopstick rightChopstick;
+  private Chopstick[] allChopSticks;
   static int ponder = 0; // Package access
-  public Philosopher(Chopstick left, Chopstick right) {
-    leftChopstick = left;
-    rightChopstick = right;
+  // has references to all chopsticks
+  public Philosopher(Chopstick[] allChopSticks) {
+    this.allChopSticks = allChopSticks;
     start();
   }
   public void think() {
@@ -40,6 +39,11 @@ class Philosopher extends Thread {
       }
   }
   public void eat() {
+    // philosopher will try to get the lock on every chopstick
+    // as soon as he gets total 2 chopsticks, display eating msg
+    // and return the eat method so that he won't try to get lock
+    // on all chopsticks.
+    // the return point should be after synchronized block
     synchronized(leftChopstick) {
       System.out.println(this + " has "
         + this.leftChopstick + " Waiting for "
