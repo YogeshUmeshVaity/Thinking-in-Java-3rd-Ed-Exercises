@@ -8,11 +8,16 @@
  
 import java.util.*;
 
+final class Capacity {
+  private Capacity() {}
+  public static int MAX_ORDERS = 100;
+}
+
 class Order {
   // Reference that Chef will use to notify
   public WaitPerson wp;
   public OrderRequest req;
-  private final int MAX_ORDERS = 100;
+  private final int MAX_ORDERS = Capacity.MAX_ORDERS;
   private static int i = 0;
   private int count = i++;
   public Order(WaitPerson wp, OrderRequest req) {
@@ -183,11 +188,17 @@ class OrderRequest {
   } 
   private static int i = 0;
   private int count = i++;
+  private int MAX_REQUESTS = Capacity.MAX_ORDERS;
   public void notifyCust() {
     synchronized(customer) {
       customer.notify();
     }
   }
+  public boolean isOpen() {
+    if(count < MAX_REQUESTS) return true;
+    else return false;
+  }
+  
   @Override
   public String toString() { return "" + count; }
   
@@ -208,6 +219,11 @@ class Customer extends Thread {
       // and adds it to the customerOrders then waits
       synchronized(restaurant.customerOrders) {
         req = new OrderRequest(this);
+        if(!req.isOpen()) {
+          OrderCheck oc = new OrderCheck();
+          oc.start();
+          return;
+        }
         System.out.println(Thread.currentThread().getName()
         + " placed an order request " + req);
         restaurant.customerOrders.add(req);
