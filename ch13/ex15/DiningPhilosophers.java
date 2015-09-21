@@ -25,7 +25,7 @@ class Philosopher extends Thread {
   private Chopstick[] allChopSticks;
   static int ponder = 0; // Package access
   // has references to all chopsticks
-  public Philosopher(Chopstick[] allChopSticks) {
+  public Philosopher(List allChopSticks) {
     this.allChopSticks = allChopSticks;
     start();
   }
@@ -39,17 +39,43 @@ class Philosopher extends Thread {
       }
   }
   public void eat() {
-    // philosopher will try to get the lock on every chopstick
+    // philosopher will get lock on Arraylist,
+    //  then get 2 chopsticks, remove them from bin
     // as soon as he gets total 2 chopsticks, display eating msg
     // and return the eat method so that he won't try to get lock
     // on all chopsticks.
     // the return point should be after synchronized block
-    synchronized(leftChopstick) {
-      System.out.println(this + " has "
-        + this.leftChopstick + " Waiting for "
-        + this.rightChopstick);
-      synchronized(rightChopstick) {
-        System.out.println(this + " eating");
+    List chopstickList = new Arraylist(); // stores 2 chopsticks
+    // Get chopsticks from bin
+    System.out.println(this + 
+    " needs to eat, waiting for chopsticks...");
+    //int availableChopsticks = chopstickList.size();
+    while(chopstickList.size() < 2) {
+      synchronized(allChopSticks) {
+        if(!allChopSticks.isEmpty()) {
+          chopstickList.add(allChopSticks.remove(1));
+          if(chopstickList.size() == 1) {
+            System.out.println(this + " has a chopstick" + 
+            "waiting for another...");
+          }
+        }
+      }
+      // so that others have chance to put chopsticks back
+      yield(); 
+    }
+    System.out.println(this + " eating");
+    try {
+      sleep(600); // time to eat
+    } catch (InterruptedException e) {
+      System.out.println("Philosopher's eat sleep interrupted.");
+      throw new RuntimeException(e);
+    }
+    // put chopsticks back into bin after eating
+    synchronized(allChopSticks) {
+      Iterator it = chopstickList.iterator();
+      while(it.hasNext()) {
+        allChopSticks.add(it.next());
+        it.remove();
       }
     }
   }
