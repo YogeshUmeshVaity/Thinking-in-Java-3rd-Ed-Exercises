@@ -8,13 +8,35 @@
  * the number of available chopsticks?
  
  
- * Conclusion : 
+ * Conclusion : If philosophers are allowed to take 1 chopstick 
+ * at a time, total 5 chopsticks
  
- * 1. java DiningPhilosophers 6 0
- * If philosophers are allowed to take 1 chopstick at a time, 
- * the program, deadlocks after a little while
+ * 1. java DiningPhilosophers 6 0  
+ *    the program, deadlocks after a little while
  
- * 2. 
+ * 2. java DiningPhilosophers 5 0 
+ *    same as above
+ 
+ * 3. java DiningPhilosophers 5 600
+ *    program doesn't deadlock but there is a possibility
+ 
+ * Conclusion : If philosophers are allowed to take only 2
+ * chopsticks at a time
+ 
+ * 1. java DiningPhilosophers 5 0 
+ *    this removes the possibility of the deadlock with 5 
+ *    chopsticks
+ 
+ * 2. java DiningPhilosophers 5 0
+ *    no deadlock when reduced chopsticks to 4
+ 
+ * 3. java DiningPhilosophers 5 0
+ *    no deadlock when reduced chopsticks to 3
+ 
+ * 4. java DiningPhilosophers 5 0
+ *    no deadlock when reduced chopsticks to 2,
+ *    so, deadlock cannot be reintroduced with reduced chopsticks
+ *    
  */
  
  
@@ -63,24 +85,30 @@ class Philosopher extends Thread {
     " needs to eat, waiting for chopsticks...");
     while(chopstickList.size() < 2) {
       synchronized(allChopSticks) {
-        if(!allChopSticks.isEmpty()) {
+        // Allow philosophers to take 1 chopstick at a time
+      /*  if(!allChopSticks.isEmpty()) {
           chopstickList.add(allChopSticks.removeFirst());
           if(chopstickList.size() == 1) {
             System.out.println(this + " has a chopstick" + 
             "waiting for another...");
           }
+        } */
+        // Allow philosophers to take 2 chopsticks at a time
+        if(allChopSticks.size() >= 2) {
+          chopstickList.add(allChopSticks.removeFirst());
+          chopstickList.add(allChopSticks.removeFirst());
         }
       }
       // so that others have chance to put chopsticks back
       yield();
     }
     System.out.println(this + " eating");
-    try {
-      sleep(600); // time to eat
-    } catch (InterruptedException e) {
-      System.out.println("Philosopher's eat sleep interrupted.");
-      throw new RuntimeException(e);
-    }
+//    try {
+//      sleep(600); // time to eat
+//    } catch (InterruptedException e) {
+//      System.out.println("Philosopher's eat sleep interrupted.");
+//      throw new RuntimeException(e);
+//    }
     // put chopsticks back into bin after eating
     synchronized(allChopSticks) {
       Iterator it = chopstickList.iterator();
@@ -103,10 +131,10 @@ class Philosopher extends Thread {
 
 public class DiningPhilosophers {
   public static void main(String[] args) {
-    if(args.length < 2) {
+    if(args.length < 3) {
       System.err.println("usage:\n" +
         "java DiningPhilosophers numberOfPhilosophers " +
-        "ponderFactor" +
+        "ponderFactor numberOfChopsticks" +
         "A nonzero ponderFactor will generate a random " +
         "sleep time during think()");
       System.exit(1);
@@ -114,8 +142,9 @@ public class DiningPhilosophers {
     Philosopher[] philosopher =
       new Philosopher[Integer.parseInt(args[0])];
     Philosopher.ponder = Integer.parseInt(args[1]);
+    int numberOfChopsticks = Integer.parseInt(args[2]);
     LinkedList allChopSticks = new LinkedList();
-    for(int i = 0; i < 5; i++) {
+    for(int i = 0; i < numberOfChopsticks; i++) {
       allChopSticks.add(new Chopstick());
     }
     for(int i = 0; i < philosopher.length; i++) {
