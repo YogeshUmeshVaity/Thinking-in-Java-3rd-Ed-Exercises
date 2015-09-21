@@ -61,7 +61,7 @@ class Philosopher extends Thread {
         }
       }
       // so that others have chance to put chopsticks back
-      yield(); 
+      yield();
     }
     System.out.println(this + " eating");
     try {
@@ -92,41 +92,23 @@ class Philosopher extends Thread {
 
 public class DiningPhilosophers {
   public static void main(String[] args) {
-    if(args.length < 3) {
+    if(args.length < 2) {
       System.err.println("usage:\n" +
         "java DiningPhilosophers numberOfPhilosophers " +
-        "ponderFactor deadlock timeout\n" +
+        "ponderFactor" +
         "A nonzero ponderFactor will generate a random " +
-        "sleep time during think().\n" +
-        "If deadlock is not the string " +
-        "'deadlock', the program will not deadlock.\n" +
-        "A nonzero timeout will stop the program after " +
-        "that number of seconds.");
+        "sleep time during think()");
       System.exit(1);
     }
     Philosopher[] philosopher =
       new Philosopher[Integer.parseInt(args[0])];
     Philosopher.ponder = Integer.parseInt(args[1]);
-    Chopstick
-      left = new Chopstick(),
-      right = new Chopstick(),
-      first = left;
-    int i = 0;
-    while(i < philosopher.length - 1) {
-      philosopher[i++] =
-        new Philosopher(left, right);
-      left = right;
-      right = new Chopstick();
+    List allChopSticks = new Arraylist();
+    for(int i = 0; i < 5; i++) {
+      allChopSticks.add(new Chopstick());
     }
-    if(args[2].equals("deadlock"))
-      philosopher[i] = new Philosopher(left, first);
-    else // Swapping values prevents deadlock:
-      philosopher[i] = new Philosopher(first, left);
-    // Optionally break out of program:
-    if(args.length >= 4) {
-      int delay = Integer.parseInt(args[3]);
-      if(delay != 0)
-        new Timeout(delay * 1000, "Timed out");
+    for(int i = 0; i < philosopher.length; i++) {
+      philosopher[i] = new Philosopher(allChopSticks);
     }
   }
 } ///:~
