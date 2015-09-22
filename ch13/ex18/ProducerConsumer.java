@@ -18,7 +18,20 @@
 import java.util.*;
 import java.util.concurrent.*;
 
-class Product {}
+class Product {
+  private static int count = 0;
+  private int productID = count++;
+  public Product() {
+    if(productID > 12) {
+      System.out.println("System out of goods, closing...");
+      System.exit(0);
+    }
+  }
+  @Override
+  public String toString() {
+    return "product # : " + productID;
+  }
+}
  
 class Producer extends Thread {
   private BlockingQueue queue;
@@ -35,13 +48,18 @@ class Producer extends Thread {
       // Put product in queue
       // put() waits untill consumer doesn't need product
       try {
-        queue.put(p);
+        // to execute both statements at the same time
+        synchronized(this) {
+          queue.put(p);
+          System.out.println(getName() + " produced " + p);
+        }
       } catch(InterruptedException ie) {
         System.out.println(getName() + "'s wait inturrpted " + 
         "while waiting for consumer to consume");
         throw new RuntimeException(ie);
       }
     }
+
   }
 }
 
@@ -59,21 +77,21 @@ class Consumer extends Thread {
       // take() waits for product if it's not available currently
       try {
         Product p = ((Product)queue.take());
+        System.out.println(getName() + " consumed " + p);
+        // Consumer the product
         p = null;
       } catch(InterruptedException ie) {
         System.out.println(getName() + "'s wait was" + 
         " interrupted while waiting for Producer to produce");
         throw new RuntimeException(ie);
       }
-      // Consumer the product
-      
     }
   }
 }
 
 public class ProducerConsumer {
-  public void main(String[] args) {
-    BlockingQueue queue = new LinkedList();
+  public static void main(String[] args) {
+    BlockingQueue queue = new SynchronousQueue();
     Product p = new Product();
     Producer producer = new Producer("Producer", queue);
     Consumer consumer = new Consumer("Consumer", queue);
