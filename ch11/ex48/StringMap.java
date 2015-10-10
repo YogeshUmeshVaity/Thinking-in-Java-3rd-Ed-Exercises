@@ -1,7 +1,7 @@
-package TIJEx.Ch11.ex48;
+package tijex.ch11.ex48;
 import java.util.*;
 import com.bruceeckel.util.*;
-import TIJEx.Ch11.ex48.*;
+import tijex.ch11.ex48.*;
 public class StringMap {
 	private int capacity = 457;
 	private AssociativeArray[] bucket = new AssociativeArray[capacity];
