@@ -6,6 +6,7 @@
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
+import java.beans.*;
 import java.util.*;
 import com.bruceeckel.swing.*;
 
@@ -15,7 +16,8 @@ public class TrackEvent extends JApplet {
     "focusGained", "focusLost", "keyPressed",
     "keyReleased", "keyTyped", "mouseClicked",
     "mouseEntered", "mouseExited", "mousePressed",
-    "mouseReleased", "mouseDragged", "mouseMoved"
+    "mouseReleased", "mouseDragged", "mouseMoved",
+    "propertyChanged"
   };
   private MyButton
     b1 = new MyButton(Color.BLUE, "test1"),
@@ -68,6 +70,11 @@ public class TrackEvent extends JApplet {
         report("mouseMoved", e.paramString());
       }
     };
+    PropertyChangeListener pcl = new PropertyChangeListener() {
+      public void propertyChange(PropertyChangeEvent e) {
+        report("propertyChanged", e.getPropertyName());
+      }
+    };
     public MyButton(Color color, String label) {
       super(label);
       setBackground(color);
@@ -75,6 +82,7 @@ public class TrackEvent extends JApplet {
       addKeyListener(kl);
       addMouseListener(ml);
       addMouseMotionListener(mml);
+      addPropertyChangeListener(pcl);
     }
   }
   public void init() {
@@ -89,6 +97,14 @@ public class TrackEvent extends JApplet {
     }
     c.add(b1);
     c.add(b2);
+    JButton propertyChanger = new JButton("Property Changer");
+    propertyChanger.addActionListener(new ActionListener() {
+      @Override
+      public void actionPerformed(ActionEvent e) {
+        b1.setText("Property Changed");
+      }
+    });
+    c.add(propertyChanger);
   }
   public static void main(String[] args) {
     Console.run(new TrackEvent(), 700, 500);
