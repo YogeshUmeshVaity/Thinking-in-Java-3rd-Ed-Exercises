@@ -24,19 +24,21 @@ class SketchBox extends JPanel {
   
   @Override
   public void paintComponent(Graphics g) {
-    super.paintComponent(g);
+    //super.paintComponent(g);
     //g.setColor(Color.RED);
     g.drawLine(x1, y1, x2, y2);
     System.out.println("x1=" + x1 + " y1=" + y1 + " x2=" + x2 + " y2=" + y2);
   }
+  
 }
 
 public class SketchingBox extends JApplet {
+  private final int MAX_SLIDER = 100;
   private SketchBox box = new SketchBox();
-  private JSlider horizontal = new JSlider(1, 600, 1);
-  private int horizontalStartPoint = 0;
+  private JSlider horizontal = new JSlider(1, MAX_SLIDER, 1);
+  private int horizontalStartPoint = 1;
   private JSlider vertical = new JSlider(JSlider.VERTICAL,
-   1, 600, 1);
+   1, MAX_SLIDER, 1);
   
   @Override
   public void init() {
@@ -46,19 +48,22 @@ public class SketchingBox extends JApplet {
     @Override
     public void stateChanged(ChangeEvent e) {
       
-      int verticalPosition = vertical.getValue();
-      int horizontalPosition = horizontal.getValue();
-      
-      int x1 = horizontalStartPoint;
-      int y1 = verticalPosition;
-      int extent = horizontalPosition - horizontalStartPoint;
-      int x2 = x1 + extent;
-      int y2 = y1 + extent;
-      box.sketch(x1, y1, x2, y2, extent);
-      horizontalStartPoint = horizontalStartPoint +
-        horizontalPosition;
-    }
-  });
+      JSlider source = (JSlider)e.getSource();
+      if(!source.getValueIsAdjusting()) {
+        int verticalPosition = vertical.getValue();
+        int horizontalPosition = horizontal.getValue();
+        int x1 = horizontalStartPoint;
+        int y1 = vertical.getValue();
+        int x2 = x1 + horizontal.getValue();
+        int y2 = vertical.getValue();
+        int extent = 0;
+        box.sketch(x1, y1, x2, y2, extent);
+        horizontalStartPoint = x2;
+        }
+      }
+    });
+    
+
     cp.add(BorderLayout.SOUTH, horizontal);
     vertical.setInverted(true);
     cp.add(BorderLayout.EAST, vertical);
