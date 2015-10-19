@@ -25,14 +25,16 @@ class SketchBox extends JPanel {
   @Override
   public void paintComponent(Graphics g) {
     super.paintComponent(g);
-    g.setColor(Color.RED);
+    //g.setColor(Color.RED);
     g.drawLine(x1, y1, x2, y2);
+    System.out.println("x1=" + x1 + " y1=" + y1 + " x2=" + x2 + " y2=" + y2);
   }
 }
 
 public class SketchingBox extends JApplet {
   private SketchBox box = new SketchBox();
   private JSlider horizontal = new JSlider(1, 600, 1);
+  private int horizontalStartPoint = 0;
   private JSlider vertical = new JSlider(JSlider.VERTICAL,
    1, 600, 1);
   
@@ -43,14 +45,18 @@ public class SketchingBox extends JApplet {
     horizontal.addChangeListener(new ChangeListener() {
     @Override
     public void stateChanged(ChangeEvent e) {
-      int extent = horizontal.getExtent();
+      
       int verticalPosition = vertical.getValue();
       int horizontalPosition = horizontal.getValue();
-      int x1 = horizontalPosition - extent;
+      
+      int x1 = horizontalStartPoint;
       int y1 = verticalPosition;
+      int extent = horizontalPosition - horizontalStartPoint;
       int x2 = x1 + extent;
       int y2 = y1 + extent;
       box.sketch(x1, y1, x2, y2, extent);
+      horizontalStartPoint = horizontalStartPoint +
+        horizontalPosition;
     }
   });
     cp.add(BorderLayout.SOUTH, horizontal);
