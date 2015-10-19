@@ -33,10 +33,11 @@ class SketchBox extends JPanel {
 }
 
 public class SketchingBox extends JApplet {
-  private final int MAX_SLIDER = 100;
+  private final int MAX_SLIDER = 600;
   private SketchBox box = new SketchBox();
   private JSlider horizontal = new JSlider(1, MAX_SLIDER, 1);
   private int horizontalStartPoint = 1;
+  private int verticalStartPoint = 1;
   private JSlider vertical = new JSlider(JSlider.VERTICAL,
    1, MAX_SLIDER, 1);
   
@@ -63,7 +64,22 @@ public class SketchingBox extends JApplet {
       }
     });
     
-
+    vertical.addChangeListener(new ChangeListener() {
+      @Override
+      public void stateChanged(ChangeEvent e) {
+        JSlider source = (JSlider)e.getSource();
+        if(!source.getValueIsAdjusting()) {
+          int x1 = horizontal.getValue();
+          int y1 = verticalStartPoint;
+          int x2 = horizontal.getValue();
+          int y2 = y1 + vertical.getValue();
+          int extent = 0;
+          box.sketch(x1, y1, x2, y2, extent);
+          verticalStartPoint = y2;
+          
+        }
+      }
+    });
     cp.add(BorderLayout.SOUTH, horizontal);
     vertical.setInverted(true);
     cp.add(BorderLayout.EAST, vertical);
