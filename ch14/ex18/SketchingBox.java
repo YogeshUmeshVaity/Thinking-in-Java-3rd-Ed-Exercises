@@ -8,6 +8,7 @@
 import javax.swing.*;
 import javax.swing.event.*;
 import java.awt.*;
+import java.awt.event.*;
 import com.bruceeckel.swing.*;
 
 class SketchBox extends JPanel {
@@ -18,6 +19,15 @@ class SketchBox extends JPanel {
   private int verticalPrevious = 1;
   private int verticalMoved = 0;
   private int verticalCurrent = 0;
+  private boolean clear = false;
+  
+  public void setClear(boolean clr) {
+    clear = clr;
+  }
+  
+  public void clearDrawing() {
+    repaint();
+  }
   
   public void sketchVertical(int v) {
     verticalCurrent = v;
@@ -38,10 +48,12 @@ class SketchBox extends JPanel {
   }
   @Override
   public void paintComponent(Graphics g) {
-    //super.paintComponent(g);
+    if(clear)
+      super.paintComponent(g);
     //g.setColor(Color.RED);
     g.drawLine(x1, y1, x2, y2);
     System.out.println("x1=" + x1 + " y1=" + y1 + " x2=" + x2 + " y2=" + y2);
+    clear = false;
   }
   
 }
@@ -80,6 +92,15 @@ public class SketchingBox extends JApplet {
 //        }
       }
     });
+    
+    clearButton.addActionListener(new ActionListener() {
+      @Override
+      public void actionPerformed(ActionEvent e) {
+        box.setClear(true);
+        box.clearDrawing();
+      }
+    });
+    
     JPanel southPanel = new JPanel();
     southPanel.setLayout(new BorderLayout());
     southPanel.add(BorderLayout.NORTH, horizontal);
