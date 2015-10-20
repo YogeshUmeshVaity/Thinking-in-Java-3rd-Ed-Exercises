@@ -52,6 +52,7 @@ public class SketchingBox extends JApplet {
   private JSlider horizontal = new JSlider(1, MAX_SLIDER, 1);
   private JSlider vertical = new JSlider(JSlider.VERTICAL,
    1, MAX_SLIDER, 1);
+  private JButton clearButton = new JButton("Clear");
   
   @Override
   public void init() {
@@ -79,14 +80,18 @@ public class SketchingBox extends JApplet {
 //        }
       }
     });
-    
-    cp.add(BorderLayout.SOUTH, horizontal);
+    JPanel southPanel = new JPanel();
+    southPanel.setLayout(new BorderLayout());
+    southPanel.add(BorderLayout.NORTH, horizontal);
+    southPanel.add(BorderLayout.SOUTH, clearButton);
+    //cp.add(BorderLayout.SOUTH, horizontal);
     vertical.setInverted(true);
     cp.add(BorderLayout.EAST, vertical);
+    cp.add(BorderLayout.SOUTH, southPanel);
   }
   
   public static void main(String[] args) {
-    Console.run(new SketchingBox(), 600, 600);
+    Console.run(new SketchingBox(), 630, 690);
   }
   
 }
