@@ -8,12 +8,13 @@ import javax.swing.event.*;
 import java.awt.*;
 import com.bruceeckel.swing.*;
 
-class SineDraw extends JPanel {
+class SineDraw extends JPanel implements Runnable {
   private static final int SCALEFACTOR = 200;
   private int cycles;
   private int points;
   private double[] sines;
   private int[] pts;
+  private double hstep;
   public SineDraw() { setCycles(5); }
   public void setCycles(int newCycles) {
     cycles = newCycles;
@@ -23,18 +24,26 @@ class SineDraw extends JPanel {
       double radians = (Math.PI/SCALEFACTOR) * i;
       sines[i] = Math.sin(radians);
     }
-    repaint();
-  }
-  public void paintComponent(Graphics g) {
-    super.paintComponent(g);
     int maxWidth = getWidth();
-    double hstep = (double)maxWidth/(double)points;
+    hstep = (double)maxWidth/(double)points;
     int maxHeight = getHeight();
     pts = new int[points];
     for(int i = 0; i < points; i++)
       pts[i] =
         (int)(sines[i] * maxHeight/2 * .95 + maxHeight/2);
-    g.setColor(Color.RED);
+    //g.setColor(Color.RED);
+    repaint();
+  }
+  
+  @Override
+  public void run() {
+    while(true) {
+      
+    }
+  }
+  public void paintComponent(Graphics g) {
+    super.paintComponent(g);
+    
     for(int i = 1; i < points; i++) {
       int x1 = (int)((i - 1) * hstep);
       int x2 = (int)(i * hstep);
