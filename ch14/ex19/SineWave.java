@@ -18,7 +18,11 @@ class SineDraw extends JPanel implements Runnable {
   private int x1, x2, y1, y2;
   private int loopTest = 0;
   private int j;
+  private int speed = 1;
   public SineDraw() { setCycles(18); }
+  public void setSpeed(int spd) {
+    speed = spd;
+  }
   public void setCycles(int newCycles) {
     cycles = newCycles;
     points = SCALEFACTOR * cycles * 2;
@@ -42,7 +46,7 @@ class SineDraw extends JPanel implements Runnable {
   public void run() {
     while(true) {
       if(j < points) {
-        j = j + 3;
+        j = j + speed;
         repaint();
       } else {
         j = 0;
@@ -52,7 +56,6 @@ class SineDraw extends JPanel implements Runnable {
         } catch(InterruptedException e) {
           e.printStackTrace();
         }
-      System.out.println(loopTest++);
     }
   }
   public void paintComponent(Graphics g) {
@@ -70,6 +73,8 @@ class SineDraw extends JPanel implements Runnable {
 public class SineWave extends JApplet {
   private static SineDraw sines = new SineDraw();
   private JSlider adjustCycles = new JSlider(1, 30, 5);
+  private JSlider speed = new JSlider(1, 9, 1);
+  private JPanel jp = new JPanel();
   public void init() {
     Container cp = getContentPane();
     cp.add(sines);
@@ -79,7 +84,15 @@ public class SineWave extends JApplet {
           ((JSlider)e.getSource()).getValue());
       }
     });
-    cp.add(BorderLayout.SOUTH, adjustCycles);
+    speed.addChangeListener(new ChangeListener() {
+      @Override public void stateChanged(ChangeEvent e) {
+        sines.setSpeed(((JSlider)e.getSource()).getValue());
+      }
+    });
+    jp.setLayout(new BorderLayout());
+    jp.add(BorderLayout.NORTH, adjustCycles);
+    jp.add(BorderLayout.SOUTH, speed);
+    cp.add(BorderLayout.SOUTH, jp);
     new Thread(sines).start();
     
     
@@ -88,7 +101,7 @@ public class SineWave extends JApplet {
     Console.run(new SineWave(), 700, 400);
     SwingUtilities.invokeLater(new Runnable() {
       @Override
-      public void run() { sines.setCycles(6); }
+      public void run() { sines.setCycles(3); }
     });
   }
 } ///:~
