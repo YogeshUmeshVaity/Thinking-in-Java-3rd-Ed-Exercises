@@ -42,7 +42,7 @@ class SineDraw extends JPanel implements Runnable {
   public void run() {
     while(true) {
       if(j < points) {
-        j = j + 1;
+        j = j + 3;
         repaint();
       } else {
         j = 0;
@@ -68,7 +68,7 @@ class SineDraw extends JPanel implements Runnable {
 }
 
 public class SineWave extends JApplet {
-  private SineDraw sines = new SineDraw();
+  private static SineDraw sines = new SineDraw();
   private JSlider adjustCycles = new JSlider(1, 30, 5);
   public void init() {
     Container cp = getContentPane();
@@ -82,8 +82,13 @@ public class SineWave extends JApplet {
     cp.add(BorderLayout.SOUTH, adjustCycles);
     new Thread(sines).start();
     
+    
   }
   public static void main(String[] args) {
     Console.run(new SineWave(), 700, 400);
+    SwingUtilities.invokeLater(new Runnable() {
+      @Override
+      public void run() { sines.setCycles(6); }
+    });
   }
 } ///:~
