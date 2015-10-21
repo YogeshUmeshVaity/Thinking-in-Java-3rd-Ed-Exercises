@@ -15,7 +15,10 @@ class SineDraw extends JPanel implements Runnable {
   private double[] sines;
   private int[] pts;
   private double hstep;
-  public SineDraw() { setCycles(5); }
+  private int x1, x2, y1, y2;
+  private int loopTest = 0;
+  private int j;
+  public SineDraw() { setCycles(18); }
   public void setCycles(int newCycles) {
     cycles = newCycles;
     points = SCALEFACTOR * cycles * 2;
@@ -32,25 +35,35 @@ class SineDraw extends JPanel implements Runnable {
       pts[i] =
         (int)(sines[i] * maxHeight/2 * .95 + maxHeight/2);
     //g.setColor(Color.RED);
-    repaint();
+    //repaint();
   }
   
   @Override
   public void run() {
     while(true) {
-      
+      if(j < points) {
+        j = j + 1;
+        repaint();
+      } else {
+        j = 0;
+      }
+      try {
+          Thread.sleep(3);
+        } catch(InterruptedException e) {
+          e.printStackTrace();
+        }
+      System.out.println(loopTest++);
     }
   }
   public void paintComponent(Graphics g) {
     super.paintComponent(g);
-    
-    for(int i = 1; i < points; i++) {
-      int x1 = (int)((i - 1) * hstep);
-      int x2 = (int)(i * hstep);
-      int y1 = pts[i-1];
-      int y2 = pts[i];
-      g.drawLine(x1, y1, x2, y2);
-    }
+    for(int i = j; i < points; i++) {
+        x1 = (int)((i - 1) * hstep);
+        x2 = (int)(i * hstep);
+        y1 = pts[i-1];
+        y2 = pts[i];
+        g.drawLine(x1, y1, x2, y2);
+      }
   }
 }
 
@@ -67,6 +80,8 @@ public class SineWave extends JApplet {
       }
     });
     cp.add(BorderLayout.SOUTH, adjustCycles);
+    new Thread(sines).start();
+    
   }
   public static void main(String[] args) {
     Console.run(new SineWave(), 700, 400);
