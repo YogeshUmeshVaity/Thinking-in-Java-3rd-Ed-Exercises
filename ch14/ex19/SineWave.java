@@ -1,8 +1,10 @@
-//: c14:SineWave.java
-// Drawing with Swing, using a JSlider.
-// <applet code=SineWave width=700 height=400></applet>
-// From 'Thinking in Java, 3rd ed.' (c) Bruce Eckel 2002
-// www.BruceEckel.com. See copyright notice in CopyRight.txt.
+/* Starting with SineWave.java, create a program (an applet/
+ * application using the Console class) that draws an animated 
+ * sine wave that appears to scroll past the viewing window like 
+ * an oscilloscope, driving the animation with a Thread. The 
+ * speed of the animation should be controlled with a 
+ * java.swing.JSlider control.
+ */
 import javax.swing.*;
 import javax.swing.event.*;
 import java.awt.*;
