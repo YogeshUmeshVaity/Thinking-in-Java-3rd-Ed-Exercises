@@ -1,6 +1,8 @@
-//: c15:LoggingLevels.java
-// From 'Thinking in Java, 3rd ed.' (c) Bruce Eckel 2002
-// www.BruceEckel.com. See copyright notice in CopyRight.txt.
+/* In LoggingLevels.java, comment out the code that sets the 
+ * severity level of the root logger handlers and verify that 
+ * messages of level CONFIG and below are not reported.
+ */
+ 
 import com.bruceeckel.simpletest.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
