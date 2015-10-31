@@ -1,8 +1,9 @@
-//: c15:ConfigureLogging.java
-// {JVMArgs: -Djava.util.logging.config.file=log.prop}
-// {Clean: java0.log,java0.log.lck}
-// From 'Thinking in Java, 3rd ed.' (c) Bruce Eckel 2002
-// www.BruceEckel.com. See copyright notice in CopyRight.txt.
+/* Modify log.prop to add an additional initialization class that 
+ * initializes a custom Formatter for the logger com.
+ */
+// Imp Note : CustomFormatter.java must be compiled first
+// to get it's .class file
+
 import com.bruceeckel.simpletest.*;
 import java.util.logging.*;
 
@@ -36,15 +37,5 @@ public class ConfigureLogging {
     logger.info("Info");
     logger.warning("Warning");
     logger.severe("Severe");
-  }
-} 
-
-class CustomFormatter extends Formatter {
-  @Override
-  public String format(LogRecord record) {
-    return record.getLevel() + " : " +
-    record.getSourceClassName() + " -:- " +
-    record.getSourceMethodName() + " -:- " + 
-    record.getMessage() + "\n";
   }
 }

@@ -18,7 +18,7 @@ java.util.logging.FileHandler.limit = 100000
 java.util.logging.FileHandler.count = 3
 # Formatter to be used with this FileHandler
 #java.util.logging.FileHandler.formatter =   java.util.logging.SimpleFormatter
-java.util.logging.FileHandler.formatter =   com.bruceeckel.tools.CustomFormatter
+java.util.logging.FileHandler.formatter =   tijex.ch15.ex12.CustomFormatter
 
 # Configure ConsoleHandler
 java.util.logging.ConsoleHandler.level = FINEST
