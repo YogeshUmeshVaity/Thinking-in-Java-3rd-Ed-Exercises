@@ -1,0 +1,19 @@
+* ###Results : 
+ *
+ * Initial values minimum of 6 results
+ * Ser : 151 ms, Clone : 7 ms
+ * With 1 level added
+ * Ser : 193 ms, Clone : 10 ms
+ * With 2 levels added
+ * Ser : 230 ms, Clone : 14 ms
+ * With 3 levels added
+ * Ser : 265 ms , Clone : 24 ms
+ 
+ 
+ Differences
+ 
+ 42 : 3
+ 37 : 4
+ 35 : 10
+ 
+ Conclusion : Serialization seems to be increasing linearly. But Cloning times increasing rapidly. More tests can be done to get better results.
