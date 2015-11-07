@@ -12,7 +12,6 @@ class Int2 implements Cloneable {
   private int i;
   public Int2(int ii) { i = ii; }
   public void increment() { i++; }
-  //public String toString() { return Integer.toString(i); }
   public Object clone() {
     Object o = null;
     try {
@@ -28,24 +27,40 @@ class Int3 {
   private int i;
   public Int3(int ii) { i = ii; }
   public void increment() { i++; }
-  //public String toString() { return Integer.toString(i); }
 }
 
-public class CloningCollection implements Cloneable {
+public class CloningCollection implements Cloneable, Collection {
   private ArrayList list = new ArrayList();
   
+  @Override
   public boolean add(Object o) {
     return list.add(o);
   }
   
-  public void add(int index, Object o) {
-    list.set(index, o);
-  }
-  
-  public Object get(int index) {
-    return list.get(index);
-  }
-  
+  @Override
+  public void clear() {}
+  @Override
+  public boolean retainAll(Collection c) { return true;}
+  @Override
+  public boolean removeAll(Collection c) { return false; }
+  @Override 
+  public boolean addAll(Collection c) { return false; }
+  @Override
+  public boolean containsAll(Collection c) { return false; }
+  @Override
+  public boolean remove(Object o) { return false; }
+  @Override
+  public boolean contains(Object o) { return false; }
+  @Override
+  public Object[] toArray(Object[] o) { return new Object[9]; }
+  @Override
+  public Object[] toArray() { return new Object[9]; }
+  @Override
+  public Iterator iterator() { return list.iterator(); }
+  @Override
+  public boolean isEmpty() { return false; }
+  @Override
+  public int size() { return list.size(); }
   
   @Override
   public Object clone() {
@@ -58,10 +73,10 @@ public class CloningCollection implements Cloneable {
     o.list = (ArrayList)o.list.clone();
     for(int i = 0; i < o.list.size(); i++) {
       Object obj = o.list.get(i);
-      //Class klass = obj.getClass();
       if(obj instanceof Cloneable) {
         Int2 addable = (Int2)obj;
-        o.list.set(i, addable);
+        Int2 cloned = (Int2)addable.clone();
+        o.list.set(i, cloned);
       } // else leave it as it is
     }
     return o;
@@ -76,22 +91,10 @@ public class CloningCollection implements Cloneable {
     CloningCollection cc = new CloningCollection();
     cc.add(new Int2(9));
     cc.add(new Int3(6));
-    System.out.println("cc before modifying cc2" + cc);
+    System.out.println("cc " + cc);
     CloningCollection cc2 = (CloningCollection)cc.clone();
-    System.out.println("cc2 before modifying" + cc2);
-//    Int2 ob1 = (Int2)cc2.get(0);
-//    ob1.increment();
-//    Int3 ob2 = (Int3)cc2.get(1);
-//    ob2.increment();
-//    Int2 ob1 = (Int2)cc.get(0);
-//    ob1.increment();
-//    Int3 ob2 = (Int3)cc.get(1);
-//    ob2.increment();
-    cc2.add(0, new Int2(12));
-    cc2.add(1, new Int3(15));
-    System.out.println("cc after modifying cc2" + cc);
-    System.out.println("cc2 after modifying" + cc2);
-    
-    
+    System.out.println("cc2 " + cc2);
+    // cc[1] and cc2[1] are same because they are references to 
+    // the same object.
   }
 }
